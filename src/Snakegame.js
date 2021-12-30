@@ -31,15 +31,11 @@ class Snakegame extends React.Component
       }
     }
     this.state.grid = grid;
-    this.keyPressed = this.keyPressed.bind(this)
-    this.move = this.move.bind(this);
-    this.bodyContains = this.bodyContains.bind(this)
-    this.getSquareClass = this.getSquareClass.bind(this)
 
     console.log(this.state)
   }
 
-  getSquareClass(x, y)
+  getSquareClass = (x, y) =>
   {
     if(this.bodyContains(x, y))
       return "grid-item snake";
@@ -48,12 +44,12 @@ class Snakegame extends React.Component
     else return "grid-item"
   }
 
-  keyPressed(event)
+  keyPressed = (event) =>
   {
     this.move(event.keyCode - 37)
   }
 
-  move(keyCode)
+  move = (keyCode) =>
   {
     var appleEaten = false;
     var newHeadX = this.state.x;
@@ -97,7 +93,7 @@ class Snakegame extends React.Component
       }
     }
     //If should die check here
-    if(this.bodyContains(newHeadX, newHeadY) || newHeadX >= 10 || newHeadX < 0 || newHeadY >= 10 || newHeadY < 0)
+    if(this.bodyContains(newHeadX, newHeadY) || this.outOfBounds(newHeadX, newHeadY))
     {
       this.setState(initialState);
       this.setState({bodyCoords : [[4, 4], [4,5]]})
@@ -119,11 +115,16 @@ class Snakegame extends React.Component
         foodY : newFoodY
       })
     }
-    console.log(this.state.bodyCoords)
+    //console.log(this.state.bodyCoords)
+  }
+
+  outOfBounds(newHeadX, newHeadY)
+  {
+    return newHeadX >= 10 || newHeadX < 0 || newHeadY >= 10 || newHeadY < 0
   }
 
   //Check if the snake contains certain coordinates, used for rendering snake
-  bodyContains(x, y)
+  bodyContains = (x, y) =>
   {
     for(let i = 0; i < this.state.bodyCoords.length; i++)
     {
@@ -133,6 +134,27 @@ class Snakegame extends React.Component
       }
     }
     return false;
+  }
+
+  getVision = () =>
+  {
+    const output = [];
+    //Get the distance from food:
+    output[0] = Math.min(Math.abs(this.state.x - this.state.foodX), 8)/8.0;
+    output[1] = Math.min(Math.abs(this.state.y - this.state.foodY), 8)/8.0;
+
+    var testX = this.state.x;
+    var testY = this.state.y;
+
+    //Get distance from obstacles in 4 cardinal directions:
+    var testX = testX + 1;
+    while(!this.bodyContains(testX, testY))
+    {
+      testX = testX + 1;
+
+    }
+    output[2] = Math.abs(this.state.x - this.state.testX);
+    //Get the distance from walls 
   }
 
   render () {
