@@ -17,6 +17,7 @@ class Snakegame extends React.Component
   constructor()
   {
     super();
+    window.snakeComponent = this;
     this.state = initialState;
     this.state.foodX = Math.floor(Math.random()*10);
     this.state.foodY = Math.floor(Math.random()*10);
@@ -31,6 +32,7 @@ class Snakegame extends React.Component
     }
     this.state.grid = grid;
     this.keyPressed = this.keyPressed.bind(this)
+    this.move = this.move.bind(this);
     this.bodyContains = this.bodyContains.bind(this)
     this.getSquareClass = this.getSquareClass.bind(this)
 
@@ -45,14 +47,19 @@ class Snakegame extends React.Component
       return "grid-item food"
     else return "grid-item"
   }
-  
+
   keyPressed(event)
+  {
+    this.move(event.keyCode - 37)
+  }
+
+  move(keyCode)
   {
     var appleEaten = false;
     var newHeadX = this.state.x;
     var newHeadY = this.state.y;
     //To move, add a piece in the direction moved, and if there is not food there delete the tail
-    switch(event.keyCode-37)
+    switch(keyCode)
     {
       case 0:
         newHeadX = this.state.x - 1;
