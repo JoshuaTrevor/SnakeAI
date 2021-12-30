@@ -9,7 +9,8 @@ const initialState = {
   y: 4,
   foodX: 6,
   foodY: 6,
-  bodyCoords: [[4, 4], [4, 5]]
+  bodyCoords: [[4, 4], [4, 5]],
+  movesSinceApple: 0
 };
 
 class Snakegame extends React.Component
@@ -99,7 +100,7 @@ class Snakegame extends React.Component
     if(newHeadX === this.state.foodX && newHeadY === this.state.foodY)
     {
       appleEaten = true;
-
+      this.setState({movesSinceApple: 0});
       //Continue trying to place the apple until it is not inside the snake. 
       //Inefficient and poor solution, will be replaced later.
       var shouldExit = false;
@@ -111,10 +112,10 @@ class Snakegame extends React.Component
       }
     }
     //If should die check here
-    if(this.bodyContains(newHeadX, newHeadY) || this.outOfBounds(newHeadX, newHeadY))
+    if(this.bodyContains(newHeadX, newHeadY) || this.outOfBounds(newHeadX, newHeadY) || this.state.movesSinceApple > 100 + this.state.bodyCoords.length * 5)
     {
       this.setState(initialState);
-      this.setState({bodyCoords : [[4, 4], [4,5]]})
+      this.setState({bodyCoords : [[4, 4], [4,5]], movesSinceApple: 0});
     }
 
     //If should not die then make the move
@@ -126,11 +127,13 @@ class Snakegame extends React.Component
       }
       this.state.bodyCoords.unshift([newHeadX, newHeadY])
     
+      let newMSA = this.state.movesSinceApple + 1;
       this.setState({
         x : newHeadX,
         y : newHeadY,
         foodX : newFoodX,
-        foodY : newFoodY
+        foodY : newFoodY,
+        movesSinceApple: newMSA
       },
       //this.getVision
       )
