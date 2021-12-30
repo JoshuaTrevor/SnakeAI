@@ -21,9 +21,9 @@ async function run()
 {
   while(i < 100000)
   {
-    var nextMove = NeuralNet.getMove();
+    var nextMove = NeuralNet.getMove(window.snakeComponent.getVision());
     window.snakeComponent.move(nextMove);
-    await timer(100);
+    await timer(30);
     i++;
   }
 }

@@ -57,15 +57,33 @@ class Snakegame extends React.Component
     //To move, add a piece in the direction moved, and if there is not food there delete the tail
     switch(keyCode)
     {
+      //Manual case
+    //   case 0:
+    //     newHeadX = this.state.x - 1;
+    //     break;
+
+    //   case 1:
+    //     newHeadY = this.state.y - 1;
+    //     break;
+
+    //   case 2:
+    //     newHeadX = this.state.x + 1;
+    //     break;
+
+    //   case 3:
+    //     newHeadY = this.state.y + 1;
+    //     break;
+
+          //Auto case
       case 0:
         newHeadX = this.state.x - 1;
         break;
 
-      case 1:
+      case 2:
         newHeadY = this.state.y - 1;
         break;
 
-      case 2:
+      case 1:
         newHeadX = this.state.x + 1;
         break;
 
@@ -113,9 +131,10 @@ class Snakegame extends React.Component
         y : newHeadY,
         foodX : newFoodX,
         foodY : newFoodY
-      })
+      },
+      //this.getVision
+      )
     }
-    //console.log(this.state.bodyCoords)
   }
 
   outOfBounds(newHeadX, newHeadY)
@@ -140,21 +159,39 @@ class Snakegame extends React.Component
   {
     const output = [];
     //Get the distance from food:
-    output[0] = Math.min(Math.abs(this.state.x - this.state.foodX), 8)/8.0;
-    output[1] = Math.min(Math.abs(this.state.y - this.state.foodY), 8)/8.0;
+    output[0] = Math.min(Math.abs(this.state.x - this.state.foodX), 8.0)/8.0;
+    output[1] = Math.min(Math.abs(this.state.y - this.state.foodY), 8.0)/8.0;
 
-    var testX = this.state.x;
-    var testY = this.state.y;
-
-    //Get distance from obstacles in 4 cardinal directions:
-    var testX = testX + 1;
-    while(!this.bodyContains(testX, testY))
+    //Get distance from death in each direction
+    let directionOrder = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [1, 1], [1, -1], [-1, 1]]
+    for(let i = 0; i < directionOrder.length; i++)
     {
-      testX = testX + 1;
-
+      output[i+2] = this.getDistanceInDirection(directionOrder[i][0], directionOrder[i][1])
     }
-    output[2] = Math.abs(this.state.x - this.state.testX);
-    //Get the distance from walls 
+
+    //Normalise values
+    for(let i = 2; i < output.length; i++)
+    {
+      let ceil = 8.0;
+      output[i] = Math.min(ceil, output[i])/ceil;
+    }
+
+    return output;
+  }
+
+  getDistanceInDirection = (xModifier, yModifier) =>
+  {
+    //Increment at least once else the snake is dead.
+    let newHeadX = this.state.x + xModifier;
+    let newHeadY = this.state.y + yModifier;
+    let distance = 0;
+    while(!this.bodyContains(newHeadX, newHeadY) && !this.outOfBounds(newHeadX, newHeadY))
+    {
+      newHeadX = newHeadX + xModifier;
+      newHeadY = newHeadY + yModifier;
+      distance++;
+    }
+    return distance;
   }
 
   render () {
