@@ -115,7 +115,14 @@ class Snakegame extends React.Component
     if(this.bodyContains(newHeadX, newHeadY) || this.outOfBounds(newHeadX, newHeadY) || this.state.movesSinceApple > 100 + this.state.bodyCoords.length * 5)
     {
       this.setState(initialState);
-      this.setState({bodyCoords : [[4, 4], [4,5]], movesSinceApple: 0});
+      newFoodX = Math.floor(Math.random()*10);
+      newFoodY = Math.floor(Math.random()*10);
+      this.setState({
+        bodyCoords : [[4, 4], [4,5]],
+        movesSinceApple: 0,
+        foodX: newFoodX,
+        foodY: newFoodY
+      });
     }
 
     //If should not die then make the move

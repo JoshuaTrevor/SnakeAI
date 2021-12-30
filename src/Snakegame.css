@@ -1,14 +1,14 @@
 .snake-container {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
   .grid {
-    width: 500px;
-    height: 500px;
+    width: 52%;
+    height: 52%;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -17,8 +17,9 @@
   
   .grid-item {
     outline: 1px solid grey;
-    width: 50px;
-    height: 50px;
+    width: 10%;
+    height: 0;
+    padding-top: 10%;
   }
 
   .snake {
