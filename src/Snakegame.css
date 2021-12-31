@@ -1,31 +1,26 @@
 .snake-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100vw;
+    height: 100vh;
   }
   
   .grid {
-    width: 52%;
-    height: 52%;
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    width: 50%;
+    height: 0;
+    margin-top: 1vh;
+    justify-content: centre;
   }
   
   .grid-item {
-    outline: 1px solid grey;
-    width: 10%;
+    outline: 1% solid grey;
+    width: 5vw;
     height: 0;
-    padding-top: 10%;
+    padding-top: 5vw;
   }
 
   .snake {
-    background-color: red
+    background-color: greenyellow
   }
 
   .food {
-    background-color: green
+    background-color: red
   }
