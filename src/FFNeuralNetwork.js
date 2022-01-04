@@ -71,9 +71,7 @@ export default class NeuralNet {
         let normalisedInputs = inputValues;
         //Set input layer to input values before continuing with activation/propagation
         nodeList[0] = normalisedInputs;
-
-
-        
+ 
         for(let layerIndex = 0; layerIndex < brain.length; layerIndex++)
         {
             for(let nodeIndex = 0; nodeIndex < brain[layerIndex].length; nodeIndex++)
@@ -89,10 +87,7 @@ export default class NeuralNet {
                 }
             }
         }
-
-
         return nodeList[nodeList.length-1];
-        //console.log(nodeList);
     }
 
     //Uniformly modify data to imitate the activation function of the training library.
@@ -102,8 +97,6 @@ export default class NeuralNet {
     }
 
     //Convert string into usable data structure
-    //To improve efficiency massively I can change the structure brain is stored in so there's less linear searching.
-    //Test using a js variable brainStr to decouple with readBrain() temporarily
     interpretBrain(brainStr)
     {
         let brainLines = brainStr.split("[NewLine]");
