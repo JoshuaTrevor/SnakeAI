@@ -19,9 +19,18 @@ const timer = ms => new Promise(res => setTimeout(res, ms))
 
 async function run()
 {
+  let loaded = false
   while(i < 100000)
   {
-    var nextMove = NeuralNet.getMove(window.snakeComponent.getVision());
+    var nextMove = 2;
+    if(!loaded)
+    {
+      loaded = NeuralNet.initialise();
+      console.log("Attempting to load brain");
+    }
+      
+    else
+      nextMove = NeuralNet.getMove(window.snakeComponent.getVision());
     window.snakeComponent.move(nextMove);
     await timer(30);
     i++;
