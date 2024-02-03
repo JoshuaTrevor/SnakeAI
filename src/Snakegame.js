@@ -91,6 +91,8 @@ class Snakegame extends React.Component
       case 3:
         newHeadY = this.state.y + 1;
         break;
+	  default:
+		break;
     }
 
     var newFoodX = this.state.foodX

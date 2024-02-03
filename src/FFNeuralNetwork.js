@@ -107,7 +107,6 @@ export default class NeuralNet {
         let currentLayer = 0;
         let currentNode = 0;
         let brain = []; //May need to change brain structure later if we don't want fully connected
-        let currentNodeConnections = []
         for(let i = 0; i < brainLines.length; i++)
         {
             if(brainLines[i].startsWith("Layer: "))
