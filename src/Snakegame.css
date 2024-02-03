@@ -1,20 +1,16 @@
 .snake-container {
-    width: 100vw;
-    height: 100vh;
+    width: 50%;
   }
   
   .grid {
-    width: 50%;
-    height: 0;
-    margin-top: 1vh;
-    justify-content: centre;
+    justify-content: left;
   }
   
   .grid-item {
     outline: 1% solid grey;
-    width: 5vw;
-    height: 0;
-    padding-top: 5vw;
+    width: 10%;
+    height: 0; /* Use padding instead */
+    padding-top: 10%;
   }
 
   .snake {

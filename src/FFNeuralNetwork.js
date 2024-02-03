@@ -137,7 +137,7 @@ export default class NeuralNet {
     //Access file and extract brain string
     readBrain()
     {
-        fetch('./BestBrain.txt')
+        fetch('./ManyHours.txt')
         .then((r) => r.text())
         .then(text  => {
             this.bestBrainStr = text;
